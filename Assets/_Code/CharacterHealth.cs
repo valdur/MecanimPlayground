@@ -1,26 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterHealth : MonoBehaviour {
 
     Animator mecanim;
-    bool dead;
+    Health health;
 
     // Use this for initialization
     void Start() {
         mecanim = GetComponent<Animator>();
+        health = GetComponent<Health>();
+
+        health.hitEvent += HitHandler;
+        health.deadEvent += DeadHandler;
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.O)) {
-            mecanim.SetTrigger("Hit");
-        }
+    private void DeadHandler() {
+        mecanim.SetBool("Dead", true);
+    }
 
-        if (Input.GetKeyDown(KeyCode.P)) {
-            dead = !dead;
-            mecanim.SetBool("Dead", dead);
-        }
+    private void HitHandler() {
+        mecanim.SetTrigger("Hit");
     }
 }
