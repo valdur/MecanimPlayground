@@ -12,6 +12,8 @@ public class WeaponHolder : MonoBehaviour {
 
     public WeaponController[] weapons;
 
+    public bool useInput;
+
     void Start() {
         mecanim = GetComponent<Animator>();
     }
@@ -21,14 +23,16 @@ public class WeaponHolder : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetButton("Fire1"))
-            if (spawnedWeapon)
-                spawnedWeapon.TryFire();
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-            ChangeWeapon(null);
-        for (int i = 0; i < Mathf.Min(weapons.Length, 9); i++) {
-            if (Input.GetKey(KeyCode.Alpha1 + i))
-                ChangeWeapon(weapons[i]);
+        if (useInput) {
+            if (Input.GetButton("Fire1"))
+                if (spawnedWeapon)
+                    spawnedWeapon.TryFire();
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+                ChangeWeapon(null);
+            for (int i = 0; i < Mathf.Min(weapons.Length, 9); i++) {
+                if (Input.GetKey(KeyCode.Alpha1 + i))
+                    ChangeWeapon(weapons[i]);
+            }
         }
     }
 
