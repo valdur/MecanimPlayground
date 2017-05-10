@@ -23,7 +23,7 @@ public class EnemyAI : MonoBehaviour {
         holder = GetComponent<WeaponHolder>();
 
         agent.updateRotation = true;
-        agent.updatePosition = true;
+        agent.updatePosition = false;
         agent.stoppingDistance = shootRange;
 
         holder.ChangeWeapon(0);
