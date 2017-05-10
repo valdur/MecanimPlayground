@@ -54,7 +54,6 @@ public class EnemyAI : MonoBehaviour {
         var dist = target.position - transform.position;
         var look = Quaternion.LookRotation(dist, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, look, 3f * Time.deltaTime);
-
     }
 
     public void SetTarget(Transform target) {
