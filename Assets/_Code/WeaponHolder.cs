@@ -35,19 +35,6 @@ public class WeaponHolder : MonoBehaviour {
             spawnedWeapon.Fire();
     }
 
-    private void Update() {
-        if (useInput) {
-            if (Input.GetButton("Fire1"))
-                Fire();
-            if (Input.GetKeyDown(KeyCode.Alpha0))
-                ChangeWeapon(-1);
-            for (int i = 0; i < 9; i++) {
-                if (Input.GetKey(KeyCode.Alpha1 + i))
-                    ChangeWeapon(i);
-            }
-        }
-    }
-
     public void ChangeWeapon(int weaponIndex = -1) {
         if (weaponIndex == -1) {
             ChangeWeapon(null);

@@ -33,7 +33,6 @@ public class EnemyAI : MonoBehaviour {
             if (targetGO)
                 target = targetGO.transform;
         }
-
     }
 
 
