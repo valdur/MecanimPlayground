@@ -16,23 +16,44 @@ public class WeaponHolder : MonoBehaviour {
 
     void Start() {
         mecanim = GetComponent<Animator>();
+
+        var hlth = GetComponent<Health>();
+        if (hlth)
+            hlth.deadEvent += () => ChangeWeapon(-1);
     }
 
     internal void Aim(float pitch) {
         weaponSocket.localEulerAngles = new Vector3(pitch, 0, 0);
     }
 
+    public bool CanFire() {
+        return spawnedWeapon ? spawnedWeapon.CanFire() : false;
+    }
+
+    public void Fire() {
+        if (spawnedWeapon)
+            spawnedWeapon.Fire();
+    }
+
     private void Update() {
         if (useInput) {
             if (Input.GetButton("Fire1"))
-                if (spawnedWeapon)
-                    spawnedWeapon.TryFire();
+                Fire();
             if (Input.GetKeyDown(KeyCode.Alpha0))
-                ChangeWeapon(null);
-            for (int i = 0; i < Mathf.Min(weapons.Length, 9); i++) {
+                ChangeWeapon(-1);
+            for (int i = 0; i < 9; i++) {
                 if (Input.GetKey(KeyCode.Alpha1 + i))
-                    ChangeWeapon(weapons[i]);
+                    ChangeWeapon(i);
             }
+        }
+    }
+
+    public void ChangeWeapon(int weaponIndex = -1) {
+        if (weaponIndex == -1) {
+            ChangeWeapon(null);
+        } else
+            if (weaponIndex >= 0 && weaponIndex < weapons.Length) {
+            ChangeWeapon(weapons[weaponIndex]);
         }
     }
 
@@ -40,11 +61,14 @@ public class WeaponHolder : MonoBehaviour {
 
         if (spawnedWeapon != null) {
             Destroy(spawnedWeapon.gameObject);
+            spawnedWeapon = null;
+        }
+        if (pfb != null) {
+            spawnedWeapon = Instantiate(pfb, weaponSocket);
+            spawnedWeapon.transform.localPosition = Vector3.zero;
+            spawnedWeapon.transform.localRotation = Quaternion.identity;
         }
 
-        spawnedWeapon = Instantiate(pfb, weaponSocket);
-        spawnedWeapon.transform.localPosition = Vector3.zero;
-        spawnedWeapon.transform.localRotation = Quaternion.identity;
     }
 
     private void OnAnimatorIK(int layerIndex) {

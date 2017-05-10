@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,8 +17,8 @@ public class WeaponController : MonoBehaviour {
 
     private float nextAllowedFireTime;
 
-    public void TryFire() {
-        if (Time.time >= nextAllowedFireTime) {
+    public void Fire() {
+        if (CanFire()) {
             var ins = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
             nextAllowedFireTime = Time.time + 1 / fireRate;
             ins.Setup(damage, muzzleSpeed);
@@ -25,4 +26,7 @@ public class WeaponController : MonoBehaviour {
 
     }
 
+    public bool CanFire() {
+        return (Time.time > nextAllowedFireTime);
+    }
 }
