@@ -12,8 +12,6 @@ public class WeaponHolder : MonoBehaviour {
 
     public WeaponController[] weapons;
 
-    public bool useInput;
-
     void Start() {
         mecanim = GetComponent<Animator>();
 
