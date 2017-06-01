@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 878f927a98c555a4a9c976297d407cf3
-timeCreated: 1496178778
-licenseType: Free
+guid: dc3d40141fcd5994ca0a165f17399106
+timeCreated: 1496319961
+licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -9,7 +9,8 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Circle
+    4300000: Cube
+    4300002: Lack
   materials:
     importMaterials: 0
     materialName: 0
